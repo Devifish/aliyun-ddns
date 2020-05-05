@@ -5,6 +5,7 @@ use std::str::FromStr;
 const OPTION_AKID: &str = "AKID";
 const OPTION_AKSCT: &str = "AKSCT";
 const OPTION_DOMAIN: &str = "DOMAIN";
+const OPTION_PERIOD: &str = "PERIOD";
 
 /// 命令行参数
 #[derive(Clone, Debug)]
@@ -29,6 +30,7 @@ impl Options {
         }
     }
 
+    /// 通过命令行参数构建
     pub fn from_args() -> Self {
         let mut options = Options::new();
         let matches = Options::build_matches();
@@ -37,24 +39,28 @@ impl Options {
         options
     }
 
+    /// 通过环境变量参数构建
     pub fn from_env() -> Self {
         let mut options = Options::new();
 
         //从环境变量内获取参数, 如存在则覆盖原值
         if let Ok(var) = env::var(OPTION_AKID) {
-            options.access_key_id = Some(var)
-        };
+            options.access_key_id = Some(var);
+        }
         if let Ok(var) = env::var(OPTION_AKSCT) {
-            options.access_key_secret = Some(var)
-        };
+            options.access_key_secret = Some(var);
+        }
         if let Ok(var) = env::var(OPTION_DOMAIN) {
-            options.access_key_id = Some(var)
-        };
+            options.access_key_id = Some(var);
+        }
+        if let Ok(var) = env::var(OPTION_PERIOD) {
+            options.period = var.parse().unwrap();
+        }
         options
     }
     
-    pub fn verify() -> Result<(), Box<dyn std::error::Error>> {
-        
+    /// 校验必填参数
+    pub fn verify(&self) -> Result<(), Box<dyn std::error::Error>> {
         
         Ok(())
     }

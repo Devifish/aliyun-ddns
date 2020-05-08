@@ -6,9 +6,8 @@ use aliyunddns::init_log;
 
 fn main() {
     let mut option = Options::from_args();
-
-    // 当使用Docker方式运行时，通过环境变量获取参数
     if let Mode::Docker = option.mode {
+        // 当使用Docker方式运行时，通过环境变量获取参数
         option = Options::from_env();
     }
 

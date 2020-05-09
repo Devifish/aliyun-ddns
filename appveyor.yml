@@ -3,21 +3,21 @@ environment:
     - TARGET: x86_64-pc-windows-msvc
       BITS: 64
 
-  install:
-    # Install Rust
-    - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
-    - rustup-init.exe -y --default-host %TARGET%
-    - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
-  
-    # Run tests
-    - rustc -V
-    - cargo -V
-  
-  build: false
-  
-  test_script:
-    - cargo test --no-fail-fast
-  
-  cache:
-    - target
-    - C:\Users\appveyor\.cargo\registry
+install:
+  # Install Rust
+  - appveyor DownloadFile https://win.rustup.rs/ -FileName rustup-init.exe
+  - rustup-init.exe -y --default-host %TARGET%
+  - set PATH=%PATH%;%USERPROFILE%\.cargo\bin
+
+  # Run tests
+  - rustc -V
+  - cargo -V
+
+build: false
+
+test_script:
+  - cargo test --no-fail-fast
+
+cache:
+  - target
+  - C:\Users\appveyor\.cargo\registry

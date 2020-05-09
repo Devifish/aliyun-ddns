@@ -1,5 +1,5 @@
+use crate::{OPTION_AKID, OPTION_AKSCT, OPTION_DOMAIN, OPTION_PERIOD, OPTION_TTL};
 use clap::{clap_app, ArgMatches};
-use crate::config::{OPTION_AKID, OPTION_AKSCT, OPTION_DOMAIN, OPTION_PERIOD, OPTION_TTL};
 
 pub fn init<'a>() -> ArgMatches<'a> {
     let app = clap_app!((super::NAME) =>

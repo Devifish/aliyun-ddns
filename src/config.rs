@@ -1,12 +1,7 @@
+use crate::{OPTION_AKID, OPTION_AKSCT, OPTION_DOMAIN, OPTION_PERIOD, OPTION_TTL};
+use clap::ArgMatches;
 use std::env;
 use std::str::FromStr;
-use clap::ArgMatches;
-
-pub const OPTION_AKID: &str = "AKID";
-pub const OPTION_AKSCT: &str = "AKSCT";
-pub const OPTION_DOMAIN: &str = "DOMAIN";
-pub const OPTION_PERIOD: &str = "PERIOD";
-pub const OPTION_TTL: &str = "TTL";
 
 /// 命令行参数
 #[derive(Clone, Debug)]

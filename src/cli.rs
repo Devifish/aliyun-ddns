@@ -21,7 +21,7 @@ pub struct Options {
 }
 
 impl Options {
-    pub fn new() -> Self {
+    fn new(mode: Mode) -> Self {
         Options {
             access_key_id: None,
             access_key_secret: None,
@@ -29,7 +29,7 @@ impl Options {
             domains: Vec::default(),
             period: 600,
             ttl: 600,
-            mode: Mode::Cli,
+            mode: mode,
         }
     }
 
@@ -39,7 +39,7 @@ impl Options {
             (author: super::AUTHORS)
             (about: "阿里云DDNS动态域名工具")
             (@arg VERBOSE: -v "设置日志等级")
-            (@arg MODE: -m --mode +takes_value default_value("cli") possible_values(&["cli", "docker"]) "运行模式")
+            (@arg MODE: -m --mode +takes_value default_value("cli") possible_values(&["cli", "env"]) "运行模式")
 
             (@arg (OPTION_AKID) : -i --akid +takes_value required_if("MODE", "cli") requires[AKSCT DOMAIN] "阿里云 Access Key ID")
             (@arg (OPTION_AKSCT) : -s --aksct +takes_value requires[AKID DOMAIN] "阿里云 Access Key Secret")
@@ -53,7 +53,7 @@ impl Options {
 
     /// 通过命令行参数构建
     pub fn from_args() -> Self {
-        let mut options = Options::new();
+        let mut options = Options::new(Mode::Cli);
         let matches = Options::build_matches();
 
         //从命令行参数内获取
@@ -78,7 +78,7 @@ impl Options {
 
     /// 通过环境变量参数构建
     pub fn from_env() -> Self {
-        let mut options = Options::new();
+        let mut options = Options::new(Mode::Env);
 
         //从环境变量内获取, 如存在则覆盖原值
         if let Ok(var) = env::var(OPTION_AKID) {
@@ -99,6 +99,8 @@ impl Options {
         options
     }
 
+
+
     /// 校验必填参数
     pub fn verify(&self) -> Result<(), Box<dyn std::error::Error>> {
         Ok(())
@@ -116,7 +118,7 @@ impl Options {
 #[derive(Clone, Debug)]
 pub enum Mode {
     Cli,
-    Docker,
+    Env,
 }
 
 impl FromStr for Mode {
@@ -125,7 +127,7 @@ impl FromStr for Mode {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "cli" => Ok(Mode::Cli),
-            "docker" => Ok(Mode::Docker),
+            "env" => Ok(Mode::Env),
             _ => Err("no match"),
         }
     }

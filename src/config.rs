@@ -29,7 +29,7 @@ impl Options {
     }
 
     /// 通过命令行参数构建
-    pub fn from_args(args: ArgMatches) -> Self {
+    pub fn from_args(args: &ArgMatches) -> Self {
         let mut options = Options::new(Mode::Cli);
 
         //从命令行参数内获取

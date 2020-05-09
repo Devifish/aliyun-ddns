@@ -14,5 +14,5 @@ FROM debian:${DEBIAN_VERSION}-slim
 MAINTAINER Devifish <devifish@outlook.com>
 
 #Run application
-COPY --from=builder /src/bin/aliyun-ddns /usr/bin/aliyun-ddns
+COPY --from=builder /usr/local/cargo/bin/aliyun-ddns /usr/bin/aliyun-ddns
 ENTRYPOINT aliyun-ddns --mode env

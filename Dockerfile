@@ -4,6 +4,7 @@ ARG DEBIAN_VERSION=buster
 #Build image
 FROM rust:${RUST_VERSION}-${DEBIAN_VERSION} as builder
 WORKDIR /src
+COPY ./cargo/config /usr/local/cargo/config
 
 #Build code
 COPY . .

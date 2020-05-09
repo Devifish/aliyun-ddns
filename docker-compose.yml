@@ -1,0 +1,12 @@
+version: "2"
+services:
+
+  aria2-server:
+    image: devifish/aliyun-ddns
+    container_name: aliyun-ddns
+    network_mode: "host"
+    environment:
+      - AKID=${AKID}
+      - AKSCT=${AKSCT}
+      - DOMAIN=${DOMAIN}
+    restart: unless-stopped

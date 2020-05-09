@@ -1,8 +1,9 @@
-pub mod cli;
+pub mod argument;
+pub mod config;
 pub mod logger;
 pub mod task;
 
-use self::{cli::Options, task::DomainUpdate};
+use self::{config::Options, task::DomainUpdate};
 
 /// aliyun-ddns
 pub const NAME: &str = env!("CARGO_PKG_NAME");

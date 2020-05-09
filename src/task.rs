@@ -1,4 +1,4 @@
-use crate::cli::Options;
+use crate::config::Options;
 use std::{thread, time::Duration, time::Instant};
 
 pub struct DomainUpdate {

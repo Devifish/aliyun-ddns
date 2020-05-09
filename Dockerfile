@@ -1,8 +1,8 @@
 ARG RUST_VERSION=1.43
-ARG ALPINE_VERSION=3.11
+ARG DEBIAN_VERSION=buster
 
 #Build image
-FROM rust:${RUST_VERSION}-alpine${ALPINE_VERSION} as builder
+FROM rust:${RUST_VERSION}-${DEBIAN_VERSION} as builder
 WORKDIR /src
 
 #Build code
@@ -10,7 +10,7 @@ COPY . .
 RUN cargo install --path .
 
 #Runner image
-FROM alpine:${ALPINE_VERSION}
+FROM debian:${DEBIAN_VERSION}-slim
 MAINTAINER Devifish <devifish@outlook.com>
 
 #Run application

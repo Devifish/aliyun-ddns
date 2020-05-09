@@ -1,16 +1,12 @@
-extern crate log;
-extern crate simplelog;
-
-use aliyunddns::cli::{Mode, Options};
-use aliyunddns::init_log;
+use aliyunddns::{cli::Mode, cli::Options, logger};
 
 fn main() {
-    let mut option = Options::from_args();
-    if let Mode::Docker = option.mode {
+    let mut options = Options::from_args();
+    if let Mode::Docker = options.mode {
         // 当使用Docker方式运行时，通过环境变量获取参数
-        option = Options::from_env();
+        options = Options::from_env();
     }
 
-    init_log();
-    log::info!("{:#?}", option);
+    logger::init();
+    aliyunddns::start(options);
 }

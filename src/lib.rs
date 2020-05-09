@@ -1,22 +1,18 @@
-extern crate log;
-extern crate simplelog;
-
 pub mod cli;
+pub mod logger;
+pub mod task;
 
-use simplelog::*;
+use self::{cli::Options, task::DomainUpdate};
 
-/// aliyun-ddns 
+/// aliyun-ddns
 pub const NAME: &str = env!("CARGO_PKG_NAME");
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 pub const AUTHORS: &str = env!("CARGO_PKG_AUTHORS");
 
-/// init logger
-pub fn init_log() {
-    CombinedLogger::init(vec![TermLogger::new(
-        LevelFilter::Info,
-        Config::default(),
-        TerminalMode::Mixed,
-    )
-    .unwrap()])
-    .unwrap();
+pub fn start(options: Options) {
+    log::info!("version: {}", VERSION);
+    log::info!("mode: {:?}", options.mode);
+
+    let update = DomainUpdate::new(options);
+    update.run();
 }

@@ -1,4 +1,3 @@
-use crate::{OPTION_AKID, OPTION_AKSCT, OPTION_DOMAIN, OPTION_PERIOD, OPTION_TTL};
 use clap::ArgMatches;
 use std::env;
 use std::str::FromStr;
@@ -33,19 +32,19 @@ impl Options {
         let mut options = Options::new(Mode::Cli);
 
         //从命令行参数内获取
-        if let Some(var) = args.value_of(OPTION_AKID) {
+        if let Some(var) = args.value_of(super::OPTION_AKID) {
             options.access_key_id = Some(var.to_string());
         }
-        if let Some(var) = args.value_of(OPTION_AKSCT) {
+        if let Some(var) = args.value_of(super::OPTION_AKSCT) {
             options.access_key_secret = Some(var.to_string());
         }
-        if let Some(var) = args.value_of(OPTION_DOMAIN) {
+        if let Some(var) = args.value_of(super::OPTION_DOMAIN) {
             options.domains = Options::sqlit_domain(var);
         }
-        if let Some(var) = args.value_of(OPTION_PERIOD) {
+        if let Some(var) = args.value_of(super::OPTION_PERIOD) {
             options.period = var.parse().unwrap();
         }
-        if let Some(var) = args.value_of(OPTION_TTL) {
+        if let Some(var) = args.value_of(super::OPTION_TTL) {
             options.ttl = var.parse().unwrap();
         }
         options
@@ -56,19 +55,19 @@ impl Options {
         let mut options = Options::new(Mode::Env);
 
         //从环境变量内获取, 如存在则覆盖原值
-        if let Ok(var) = env::var(OPTION_AKID) {
+        if let Ok(var) = env::var(super::OPTION_AKID) {
             options.access_key_id = Some(var);
         }
-        if let Ok(var) = env::var(OPTION_AKSCT) {
+        if let Ok(var) = env::var(super::OPTION_AKSCT) {
             options.access_key_secret = Some(var);
         }
-        if let Ok(var) = env::var(OPTION_DOMAIN) {
+        if let Ok(var) = env::var(super::OPTION_DOMAIN) {
             options.domains = Options::sqlit_domain(&var);
         }
-        if let Ok(var) = env::var(OPTION_PERIOD) {
+        if let Ok(var) = env::var(super::OPTION_PERIOD) {
             options.period = var.parse().unwrap();
         }
-        if let Ok(var) = env::var(OPTION_TTL) {
+        if let Ok(var) = env::var(super::OPTION_TTL) {
             options.ttl = var.parse().unwrap();
         }
         options

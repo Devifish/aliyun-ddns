@@ -1,5 +1,8 @@
+pub mod aliyun;
 pub mod argument;
 pub mod config;
+pub mod error;
+pub mod ip;
 pub mod logger;
 pub mod task;
 
